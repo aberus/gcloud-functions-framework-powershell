@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+   <PropertyGroup>
+    <IsPackable>true</IsPackable>
+    <Version>2.1.0</Version>
+    <Copyright>Copyright 2023 aberus.com</Copyright>
+    <Authors>Aleksander Berus</Authors>
+    <PackageIcon>NuGetIcon.png</PackageIcon>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/aberus/gcloud-functions-powershell</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/aberus/gcloud-functions-powershell</RepositoryUrl>
+    <Title>Google Cloud Functions PowerShell Framework</Title>
+    <Description>Google Cloud Functions PowerShell Framework</Description>
+    <PackageTags>google;cloud;functions;powershell</PackageTags>
+    <IncludeSymbols>True</IncludeSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.2.21">
+      <PrivateAssets>analyzers;build</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Google.Cloud.Functions.Hosting" Version="2.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="../../LICENSE" Pack="true" PackagePath="/" />
+    <None Include="../NuGetIcon.png" Pack="true" PackagePath="/" />
+  </ItemGroup>
+
+</Project>
