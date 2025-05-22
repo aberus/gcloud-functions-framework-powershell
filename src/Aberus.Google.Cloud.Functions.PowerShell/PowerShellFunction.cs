@@ -4,55 +4,66 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Aberus.Google.Cloud.Functions.Framework;
 
+/// <summary>
+/// Base class for PowerShell functions in Google Cloud Functions.
+/// </summary>
+/// <param name="powerShellRunner">The PowerShell runner to execute the PowerShell script.</param>
+/// <param name="logger">The logger to use to report errors.</param>
 [FunctionsStartup(typeof(PowerShellFunctionStartup))]
-public abstract class PowerShellFunction : IHttpFunction
+public abstract class PowerShellFunction(
+    IPowerShellRunner powerShellRunner,
+    ILogger<PowerShellFunction> logger) : ITypedFunction<HttpRequest, HttpResponse>
 {
-    private readonly IPowerShellRunner _powerShellRunner;
-    private readonly IHttpRequestReader<HttpRequest> _requestReader;
-    private readonly IHttpResponseWriter<HttpResponse> _responseWriter;
-    private readonly ILogger _logger;
+    private readonly IPowerShellRunner _powerShellRunner = powerShellRunner;
+    private readonly ILogger _logger = logger;
 
-    protected PowerShellFunction(
-        IPowerShellRunner powerShellRunner,
-        IHttpRequestReader<HttpRequest> requestReader,
-        IHttpResponseWriter<HttpResponse> responseWriter,
-        ILogger<PowerShellFunction> logger)
+    /// <summary>
+    /// Asynchronously handles an incoming request
+    /// </summary>
+    /// <param name="request">
+    /// The HTTP context containing the request and response.
+    /// The request payload, deserialized from the incoming request.</param>
+    /// <param name="cancellationToken">A cancellation token which indicates if the request is aborted.</param>
+    /// <returns>A <see cref="HttpResponse"/> containing the result of the PowerShell script execution. If an error occurs, the
+    /// response will include an appropriate status code and error message.</returns>
+    public async Task<HttpResponse> HandleAsync(HttpRequest request, CancellationToken cancellationToken)
     {
-        _powerShellRunner = powerShellRunner;
-        _requestReader = requestReader;
-        _responseWriter = responseWriter;
-        _logger = logger;
+        try
+        {
+            var scriptFilePath = GetScriptFilePath();
+            var script = await File.ReadAllTextAsync(scriptFilePath, cancellationToken).ConfigureAwait(false);
+            return await _powerShellRunner.RunScriptAsync(script, request, cancellationToken).ConfigureAwait(false);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e.Message);
+            return new HttpResponse
+            {
+                StatusCode = StatusCodes.Status500InternalServerError,
+                Body = e.Message
+            };
+        }
     }
 
-    public async Task HandleAsync(HttpContext context)
+    /// <summary>
+    /// Retrieves the name of the PowerShell script file used by the application.
+    /// </summary>
+    /// <returns>The name of the PowerShell script file, as a string.</returns>
+    /// <exception cref="FileNotFoundException">Thrown if the PowerShell script file is not found in the assembly resources. Ensure the script is included in
+    /// the package.</exception>
+    private static string GetScriptFilePath()
     {
-        HttpRequest data;
-        try
-        {
-            data = await _requestReader.ReadRequestAsync(context.Request).ConfigureAwait(false);
-        }
-        catch (Exception e)
-        {
-            _logger.LogError(e, e.Message);
-            context.Response.StatusCode = StatusCodes.Status400BadRequest;
-            return;
-        }
+        const string powerShellScriptPath = "function.ps1";
 
-        var script = await File.ReadAllTextAsync("function.ps1", context.RequestAborted).ConfigureAwait(false);
-        var response = await _powerShellRunner.RunScriptAsync(script, data, context.RequestAborted).ConfigureAwait(false);
-        try
+        if(!File.Exists(powerShellScriptPath))
         {
-            await _responseWriter.WriteResponseAsync(context.Response, response).ConfigureAwait(false);
+            throw new FileNotFoundException($"PowerShell script {powerShellScriptPath} not found in the assembly resources. Ensure the script is included in the package.");
         }
-        catch (Exception e)
-        {
-            _logger.LogError(e, e.Message);
-            context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-            return;
-        }
+        return powerShellScriptPath;
     }
 }

@@ -1,13 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <OutputType>Library</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Deterministic>true</Deterministic>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <Nullable>enable</Nullable>
+    <OutputType>Library</OutputType>
   </PropertyGroup>
 
    <PropertyGroup>
     <IsPackable>true</IsPackable>
-    <Version>2.1.0</Version>
+    <Version>3.0.0</Version>
     <Copyright>Copyright 2023 aberus.com</Copyright>
     <Authors>Aleksander Berus</Authors>
     <PackageIcon>NuGetIcon.png</PackageIcon>
@@ -18,14 +21,13 @@
     <Title>Google Cloud Functions PowerShell Framework</Title>
     <Description>Google Cloud Functions PowerShell Framework</Description>
     <PackageTags>google;cloud;functions;powershell</PackageTags>
-    <IncludeSymbols>True</IncludeSymbols>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.2.21">
+    <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.4.10">
       <PrivateAssets>analyzers;build</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Google.Cloud.Functions.Hosting" Version="2.2.1" />
+    <PackageReference Include="Google.Cloud.Functions.Hosting" Version="3.0.0" />
   </ItemGroup>
 
   <ItemGroup>
