@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aberus.Google.Cloud.Functions.Examples.HelloWorld", "Aberus.Google.Cloud.Functions.Examples.HelloWorld\Aberus.Google.Cloud.Functions.Examples.HelloWorld.csproj", "{345BD6B3-B225-4116-A59D-D26441437F4D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aberus.Google.Cloud.Functions.Examples.PSSimpleFunction", "Aberus.Google.Cloud.Functions.Examples.PSSimpleFunction\Aberus.Google.Cloud.Functions.Examples.PSSimpleFunction.csproj", "{5730CE88-691A-1949-4FAF-627D34A4567C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aberus.Google.Cloud.Functions.Examples.PSEventFunction", "Aberus.Google.Cloud.Functions.Examples.PSEventFunction\Aberus.Google.Cloud.Functions.Examples.PSEventFunction.csproj", "{1B6D5D37-7BA4-E1FD-10CB-E0350DE20F28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aberus.Google.Cloud.Functions.Examples.PSUntypedEventFunction", "Aberus.Google.Cloud.Functions.Examples.PSUntypedEventFunction\Aberus.Google.Cloud.Functions.Examples.PSUntypedEventFunction.csproj", "{14F6F505-E924-3906-F571-1EC28D2BCC95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +15,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{345BD6B3-B225-4116-A59D-D26441437F4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{345BD6B3-B225-4116-A59D-D26441437F4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{345BD6B3-B225-4116-A59D-D26441437F4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{345BD6B3-B225-4116-A59D-D26441437F4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5730CE88-691A-1949-4FAF-627D34A4567C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5730CE88-691A-1949-4FAF-627D34A4567C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5730CE88-691A-1949-4FAF-627D34A4567C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5730CE88-691A-1949-4FAF-627D34A4567C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B6D5D37-7BA4-E1FD-10CB-E0350DE20F28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B6D5D37-7BA4-E1FD-10CB-E0350DE20F28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B6D5D37-7BA4-E1FD-10CB-E0350DE20F28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B6D5D37-7BA4-E1FD-10CB-E0350DE20F28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14F6F505-E924-3906-F571-1EC28D2BCC95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14F6F505-E924-3906-F571-1EC28D2BCC95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14F6F505-E924-3906-F571-1EC28D2BCC95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14F6F505-E924-3906-F571-1EC28D2BCC95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
